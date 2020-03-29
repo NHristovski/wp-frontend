@@ -1,0 +1,42 @@
+<mat-card>
+  <div class="container">
+    <div class="row">
+      <div class="col-4">
+        <div (click)="openDialog(product)">
+          <img [src]="product.imageLocation" [width]="125" [height]="125"/>
+
+        </div>
+      </div>
+      <div class="col-8">
+        <h2><a (click)="openDialog(product)">{{product.title}}</a></h2>
+        <br/>
+
+        <div class="container">
+          <div class="row">
+            <div class="col" style="font-size: 20px">
+              <b>{{product.price}} $</b>
+            </div>
+            <div class="col" style="font-size: 15px">
+              <span *ngIf="product.averageRating !== 0">
+                {{product.averageRating | number:'1.2-2' }} <span class="starr">&#9733;</span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <hr/>
+        <div>Your rating:
+          <ngb-rating [(rate)]="currentRate" (click)="ratingClicked()">
+            <ng-template let-fill="fill" let-index="index">
+              <span class="star" [class.filled]="fill === 100" [class.bad]="index < 3" [class.good]="index > 6">&#9733;</span>
+            </ng-template>
+          </ngb-rating>
+        </div>
+      </div>
+    </div>
+  </div>
+</mat-card>
+
+
+
+
+

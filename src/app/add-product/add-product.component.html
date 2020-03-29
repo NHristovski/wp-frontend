@@ -1,0 +1,107 @@
+<!--<app-toolbar [admin]="true"></app-toolbar>-->
+
+<!--<div class="container">-->
+<!--  <div class="row">-->
+<!--    <div class="col-2">-->
+<!--    </div>-->
+
+<!--    <div class="col-8">-->
+
+<div style="border: 3px outset cornflowerblue; padding: 3px; margin: 25px">
+  <div class="add-photo-container">
+    <mat-card class="add-photo-card">
+      <mat-card-header>
+        <mat-card-title>{{ edit ? 'Edit Product' : 'Add Product'}}</mat-card-title>
+      </mat-card-header>
+
+      <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="name">Product name:</label>
+          <input id="name" type="text" formControlName="title" class="form-control"
+                 [ngClass]="{ 'is-invalid': submitted && getFormControls.title.errors }"/>
+          <div *ngIf="submitted && getFormControls.title.errors" class="invalid-feedback">
+            <div *ngIf="getFormControls.title.errors.required">Product name is required</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="desc">Description:</label>
+          <input type="textarea" id="desc" formControlName="description" class="form-control"
+                 [ngClass]="{ 'is-invalid': submitted && getFormControls.description.errors }"/>
+          <div *ngIf="submitted && getFormControls.description.errors" class="invalid-feedback">
+            <div *ngIf="getFormControls.description.errors.required">Description is required</div>
+          </div>
+        </div>
+<!--        [value]="product ? product.description : ''"-->
+
+        <label for="cat">Categories:</label>
+        <mat-form-field id="cat" style="width: 100%">
+          <mat-label>Categories</mat-label>
+          <mat-select formControlName="categories" multiple>
+            <mat-option *ngFor="let category of categories"
+                        [value]="category.categoryName">{{category.categoryName}}</mat-option>
+          </mat-select>
+          <div *ngIf="submitted && getFormControls.categories.errors" class="invalid-feedback">
+            <div *ngIf="getFormControls.categories.errors">Description is required</div>
+          </div>
+        </mat-form-field>
+
+
+        <div class="form-group">
+          <label for="price">Price:</label>
+          <input id="price" type="number" step="0.01" min="0" max="10" formControlName="price"
+                 class="form-control"
+                 [ngClass]="{ 'is-invalid': submitted && getFormControls.price.errors }"/>
+          <div *ngIf="submitted && getFormControls.price.errors" class="invalid-feedback">
+            <div *ngIf="getFormControls.price.errors.required">Price is required</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="stock">In stock:</label>
+          <input id="stock" type="number" formControlName="stock" class="form-control"
+                 [ngClass]="{ 'is-invalid': submitted && getFormControls.stock.errors }"/>
+          <div *ngIf="submitted && getFormControls.stock.errors" class="invalid-feedback">
+            <div *ngIf="getFormControls.stock.errors.required">Stock is required</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="image">Image</label>
+          <input #imageInput id="image" type="file"
+                 accept="image/*" class="form-control" (change)="imageInputChange(imageInput)">
+          <div class="row">
+            <div class="col-3">
+
+            </div>
+            <div class="col-6">
+              <img [src]="imageURL" width="150" height="150" *ngIf="imageURL" style="margin: 15px">
+              <img [src]="imageLocation" width="150" height="150" *ngIf="!imageURL && imageLocation" style="margin: 15px">
+            </div>
+            <div class="col-3">
+
+            </div>
+          </div>
+
+          <div *ngIf="submitted && (!imageFile && !imageLocation)" class="alert-danger">
+            <div>Image is required!</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <button mat-raised-button color="accent" type="submit" [disabled]="loading" class="btn btn-primary">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+             {{ edit ? 'Save Changes' : 'Add Product' }}
+          </button>
+          <button mat-raised-button color="primary" [mat-dialog-close]="false" style="margin-left: 10px">Close</button>
+        </div>
+      </form>
+
+    </mat-card>
+  </div>
+
+</div>
+<!--    </div>-->
+<!--    <div class="col-2">-->
+
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->

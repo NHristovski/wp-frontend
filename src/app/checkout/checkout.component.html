@@ -1,0 +1,80 @@
+<form (ngSubmit)="onSubmit()" class="example-form">
+    <h3>Contact:</h3>
+    <mat-form-field class="example-full-width">
+
+      <mat-label>Delivery Address</mat-label>
+      <input matInput [formControl]="deliveryFormControl" [errorStateMatcher]="matcher"
+             placeholder="Ex. 1960 W CHELSEA AVE STE 2006R">
+      <mat-error *ngIf="deliveryFormControl.hasError('required')">
+        Delivery Address is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <br/>
+    <mat-form-field>
+      <mat-label>Phone number</mat-label>
+      <input matInput [formControl]="phoneFormControl"
+             [errorStateMatcher]="matcher" placeholder="Ex. 07x-xxx-xxx">
+      <mat-error *ngIf="phoneFormControl.hasError('Wrong Number Format')">
+        Wrong number format
+      </mat-error>
+    </mat-form-field>
+
+  <hr>
+
+  <h3>Credit card:</h3>
+  <mat-form-field class="example-full-width">
+    <mat-label>Card number</mat-label>
+    <input matInput [formControl]="creditCardFormControl" [errorStateMatcher]="matcher"
+           placeholder="Ex. xxxx-xxxx-xxxx-xxxx">
+    <mat-error *ngIf="creditCardFormControl.hasError('creditcard')">
+      Not a valid credit card number
+    </mat-error>
+    <mat-error *ngIf="creditCardFormControl.hasError('required')">
+      CreditCard is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Card Holder Name</mat-label>
+    <input matInput [formControl]="cardHolderNameFormControl" [errorStateMatcher]="matcher">
+    <mat-error *ngIf="cardHolderNameFormControl.hasError('required')">
+      Card holder name is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Expiry Date</mat-label>
+    <input matInput [matDatepicker]="picker" [formControl]="expirationDateFormControl" [errorStateMatcher]="matcher">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+    <mat-error *ngIf="expirationDateFormControl.hasError('required')">
+      Expiry date is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <br>
+
+  <mat-form-field>
+    <mat-label>CCV</mat-label>
+    <input matInput [formControl]="ccvFormControl" [errorStateMatcher]="matcher" placeholder="Ex. xxx">
+    <mat-error *ngIf="ccvFormControl.hasError('maxlength') || ccvFormControl.hasError('minlength')">
+      The number does not have 3 digits
+    </mat-error>
+    <mat-error *ngIf="ccvFormControl.hasError('required')">
+      CCV is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <br/>
+  <hr>
+
+  <button mat-raised-button type="submit" color="accent"
+          style="margin: 10px" [disabled]="!validForm()">
+    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+    Buy
+  </button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="false">Close</button>
+  <p style="font-size: 17px; color: red" *ngIf="showError">Failed to make a transaction. Please try again later.</p>
+
+
+</form>

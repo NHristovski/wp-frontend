@@ -1,0 +1,88 @@
+<h2 mat-dialog-title>Product details</h2>
+<mat-dialog-content class="mat-typography">
+  <mat-card>
+    <div class="container">
+      <div class="row">
+        <div class="col-4">
+          <img [src]="product.imageLocation" [width]="250" [height]="250"/>
+        </div>
+        <div class="col-8">
+          <h1><b>{{product.title}}</b></h1>
+
+          <hr/>
+
+          <ul class="list-group list-group-horizontal" style="font-size: 17px">
+            <li *ngFor="let category of product.categories" class="list-group-item">
+              <a  [href]="'/?categoryName=' + category.categoryName" >{{ category.categoryName }}</a>
+            </li>
+          </ul>
+
+          <br/>
+
+          <h2>{{product.description}}</h2>
+
+          <br/>
+
+          <div class="container">
+            <div class="row">
+              <div class="col" style="font-size: 20px">
+                <b>{{ (howMany * product.price) | number:'1.2-2'}} $</b>
+              </div>
+              <div class="col" style="font-size: 17px">
+              <span *ngIf="product.averageRating !== 0">
+                {{product.averageRating | number:'1.2-2' }} <span class="starr">&#9733;</span>
+              </span>
+              </div>
+            </div>
+          </div>
+
+          <hr/>
+
+          <div class="container">
+            <div class="row">
+              <div class="col" style="font-size: 17px">Your rating:
+                <ngb-rating [(rate)]="product.currentUserRating" (click)="ratingClicked()">
+                  <ng-template let-fill="fill" let-index="index">
+                    <span class="star" [class.filled]="fill === 100" [class.bad]="index < 3" [class.good]="index > 6">&#9733;</span>
+                  </ng-template>
+                </ngb-rating>
+              </div>
+              <div class="col" style="font-size: 17px">
+                Total ratings: {{product.totalRatings }}<img src="../../assets/images/person-icon.png" alt=""
+                                                             [width]="25" [height]="25">
+              </div>
+            </div>
+            <br/>
+            <br/>
+            <div class="container">
+              <div class="row">
+                <div class="col">
+                  <p style="font-size: 17px; color: red" *ngIf="product.stock === 0">Currently not in stock.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </mat-card>
+
+</mat-dialog-content>
+
+
+
+<mat-dialog-actions align="end">
+
+  <button mat-button [mat-dialog-close]="false">Close</button>
+
+  <input class="form-control" type="number" value="1"
+         id="example-number-input" style="width: 100px; margin: 10px;"
+         [min]="1" [max]="product.stock"
+         [(ngModel)]="howMany">
+
+  <button mat-button [mat-dialog-close]="true" mat-raised-button color="accent" [disabled]="product.stock === 0">Add to Cart</button>
+</mat-dialog-actions>
+
+
+

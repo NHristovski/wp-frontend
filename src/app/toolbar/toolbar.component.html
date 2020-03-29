@@ -1,0 +1,26 @@
+<div id="menu">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <span>The Everything Store</span>
+      <button mat-button [routerLink]="''">Product Catalog</button>
+
+      <button mat-button [matMenuTriggerFor]="menu1">
+        Shopping Cart
+      </button>
+
+      <mat-menu #menu1="matMenu" [overlapTrigger]="false">
+        <button mat-menu-item (click)="shoppingCart()">Your Shopping Cart</button>
+        <button mat-menu-item (click)="history()">Shopping History</button>
+      </mat-menu>
+
+      <button mat-button [routerLink]="'/admin'">Admin Panel</button>
+
+      <span class="example-fill-remaining-space"></span>
+
+      <mat-label style="margin-right: 10px">Welcome {{username}} !</mat-label>
+
+      <button mat-button (click)="logOut()">Log out</button>
+    </mat-toolbar-row>
+  </mat-toolbar>
+</div>
+
