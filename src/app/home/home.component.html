@@ -1,0 +1,90 @@
+﻿<app-toolbar></app-toolbar>
+
+<div class="row">
+  <div class="col-2">
+    <br/>
+    <div class="vl"></div>
+    <div class="row">
+      <div class="col-2"></div>
+      <div class="col-10">
+        <h2> Products </h2>
+      </div>
+    </div>
+    <ul>
+      <li class="list-group-item">
+        <a [href]="'/?categoryName=Top Products'"> Top Products </a>
+      </li>
+      <li class="list-group-item">
+        <a [href]="'/'"> All Products </a>
+      </li>
+    </ul>
+    <hr/>
+    <div class="row">
+      <div class="col-2"></div>
+      <div class="col-10">
+        <h2>Categories</h2>
+      </div>
+    </div>
+    <ul class="list-group" style="font-size: 17px">
+      <div class="row">
+        <div class="col-2"></div>
+        <div class="col-10">
+          <li *ngFor="let category of categories" class="list-group-item">
+            <a [href]="'/?categoryName=' + category.categoryName">{{ category.categoryName }}</a>
+          </li>
+        </div>
+      </div>
+    </ul>
+  </div>
+  <div class="col-10">
+    <mat-grid-list cols="3" [rowHeight]="230">
+      <mat-grid-tile
+        *ngFor="let product of products"
+        [colspan]="1"
+        [rowspan]="1">
+        <app-product [product]="product" [currentRate]="product.currentUserRating"></app-product>
+      </mat-grid-tile>
+    </mat-grid-list>
+
+    <div class="row">
+      <div class="col-4"></div>
+      <div class="col-4">
+        <div class="row">
+          <div class="col-4"></div>
+          <div class="col-8">
+            <button mat-raised-button color="accent" style="margin-right: 10px; margin-bottom: 5px" (click)="previous()"
+                    [disabled]="currentPage <= 1">
+
+              <mat-icon class="example-icon">arrow_back</mat-icon>
+            </button>
+            {{ currentPage }}
+            <button mat-raised-button color="accent" style="margin-left: 10px; margin-bottom: 5px" (click)="next()"
+                    [disabled]="currentPage >= maxPages">
+              <mat-icon class="example-icon">arrow_forward</mat-icon>
+            </button>
+
+            <form [formGroup]="renderForm">
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-6">
+                    <input id="name" type="number" formControlName="render" class="form-control" placeholder="Render"
+                           [ngClass]="{ 'is-invalid': submitted && getFormControls.render.errors }"/>
+                    <div *ngIf="submitted && getFormControls.render.errors" class="invalid-feedback">
+                      <div *ngIf="getFormControls.render.errors.required">Render is required</div>
+                      <div *ngIf="getFormControls.render.errors.min">Render cannot be less than 1</div>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <button style="display: inline-block" mat-raised-button color="primary" (click)="onSubmit()">Change</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+
+          </div>
+        </div>
+        <div class="col-4"></div>
+      </div>
+    </div>
+
+  </div>
