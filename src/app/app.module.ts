@@ -35,7 +35,6 @@ import {NgPaymentCardModule} from 'ng-payment-card';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import {AlertComponent} from './_directives/alert.component';
 import { AdminComponent } from './admin/admin.component';
 import {MatSelectModule} from '@angular/material/select';
 @NgModule({
@@ -45,7 +44,6 @@ import {MatSelectModule} from '@angular/material/select';
     HomeComponent,
     LoginComponent,
     RegisterComponent,
-    AlertComponent,
     AddProductComponent,
     ProductComponent,
     ProductDetailsComponent,

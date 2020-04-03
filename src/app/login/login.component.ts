@@ -9,6 +9,7 @@ export class LoginComponent implements OnInit {
   loading = false;
   returnUrl: string;
   logout: boolean;
+  error: boolean;
   model: any = {};
 
   constructor(
@@ -29,7 +30,6 @@ export class LoginComponent implements OnInit {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
 
     this.logout = this.route.snapshot.queryParams['logout'] || false;
-
   }
 
   login() {
@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
           this.alertService.openSnackBar(`Login successful`, false);
         },
         error => {
-          this.alertService.error(error);
+          this.alertService.openSnackBar('Failed to log in. Please check your credentials', true);
           this.loading = false;
         });
   }
